@@ -12,9 +12,9 @@ def index():
     return render_template('index.html')
 
 @app.route('/projects')
-def index():
+def projects():
     return render_template('projects.html')
 
 @app.route('/account')
-def index():
+def account():
     return render_template('account.html')
