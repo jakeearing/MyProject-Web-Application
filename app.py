@@ -10,3 +10,11 @@ app = Flask(__name__)
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/projects')
+def index():
+    return render_template('projects.html')
+
+@app.route('/account')
+def index():
+    return render_template('account.html')
