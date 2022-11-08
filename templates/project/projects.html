@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="MyProject">
+        <title>MyProject - Create and Manage Projects</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <nav>
+            <a href="/">Home</a> ||
+            <a href="/notes">My Projects</a> ||
+            <a href="/notes/new">Add Project</a>
+        </nav>
+        <!--<h1>Welcome {{user.name}} to MyProject!</h1>-->
+        <h1>Welcome to MyProject!</h1>
+        <h1>Listing notes</h1>
+
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+            </tr>
+            {% for project in projects%}
+            <tr>
+                <td><a href="{{ url_for('get_note', note_id=note.id) }}">{{ note.title }}</a></td>
+                <td>{{ note.date }}</td>
+                <td><a href="{{ url_for('update_note', note_id=note.id)}}">Edit</a></td>
+                <td>
+                    <form action="{{ url_for('delete_note', note_id=note.id) }}" method="post">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
