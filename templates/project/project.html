@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="MyProject">
+        <title>MyProject - Create and Manage Projects</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <nav>
+            <a href="/">Home</a> ||
+            <a href="/projects">My Projects</a> ||
+            <a href="/projects/new">Add Project</a>
+        </nav>
+        <!--<h1>Welcome {{user.name}} to MyProject!</h1>-->
+        <h1>Welcome to MyProject!</h1>
+        <h1>Project Details</h1>
+        
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Text</th>
+                <th>Date</th>
+                <th>Project Manager ID</th>
+            </tr>
+            <tr>
+                <td>{{ project.title }}</td>
+                <td>{{ project.text }}</td>
+                <td>{{ project.date }}</td>
+                <td>{{ project.managerID }}</td>
+            </tr>
+        </table>
+
+    </body>
+</html>
