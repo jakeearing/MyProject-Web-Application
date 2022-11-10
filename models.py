@@ -8,8 +8,7 @@ class Project(db.Model):
     date = db.Column("date", db.String(50))
     manager_id = db.Column("manager_id", db.Integer)
 
-    def __init__(self, id, title, text, date, manager_id):
-        self.id = id
+    def __init__(self, title, text, date, manager_id):
         self.title = title
         self.text = text
         self.date = date
@@ -24,8 +23,7 @@ class Task(db.Model):
     date_due = db.Column("date_due", db.String(50))
     assigned_id = db.Column("assigned_id", db.Integer)
 
-    def __init__(self, id, task_name, content_text, date_created, date_due, assigned_id):
-        self.id = id
+    def __init__(self, task_name, content_text, date_created, date_due, assigned_id):
         self.task_name = task_name
         self.content_text = content_text
         self.date_created = date_created
@@ -41,8 +39,7 @@ class User(db.Model):
     email = db.Column("email", db.String(50))
     password = db.Column("password", db.String(50))
 
-    def __init__(self, id, fname, lname, username, email, password):
-        self.id = id
+    def __init__(self, fname, lname, username, email, password):
         self.fname = fname
         self.lname = lname
         self.username = username
