@@ -10,10 +10,10 @@ class Project(db.Model):
 
     def __init__(self, id, title, text, date, manager_id):
         self.id = id
-        self.task_name = title
-        self.content_text = text
-        self.date_created = date
-        self.date_due = manager_id
+        self.title = title
+        self.text = text
+        self.date = date
+        self.manager_id = manager_id
 
 
 class Task(db.Model):
@@ -38,11 +38,13 @@ class User(db.Model):
     fname = db.Column("fname", db.String(50))
     lname = db.Column("lname", db.String(50))
     username = db.Column("username", db.String(50))
+    email = db.Column("email", db.String(50))
     password = db.Column("password", db.String(50))
 
-    def __init__(self, id, fname, lname, username, password):
+    def __init__(self, id, fname, lname, username, email, password):
         self.id = id
         self.fname = fname
         self.lname = lname
         self.username = username
+        self.email = email
         self.password = password
