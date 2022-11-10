@@ -3,19 +3,42 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="UNCC Notes App">
-        <title>UNCC Notes App - View your Notes</title>
+        <meta name="description" content="MyProject">
+        <title>MyProject - Create and Manage Projects</title>
         <!-- styles -->
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     </head>
     <body>
         <nav>
-            <a href="/"> Home</a> ||
-            <a href="/notes"> My Notes</a> ||
-            <a href="/notes/new"> Add Note</a>
+            <a href="/">Home</a> ||
+            <a href="/projects">My Projects</a> ||
+            <a href="/projects/new">Add Project</a>
         </nav>
-        <!--<h1>Welcome {{user.name}} to MyProject!</h1>-->
-        <h1>Welcome to MyProject!</h1>
-
+        <h1>Welcome {{user.fname}} to MyProject!</h1>
+        {% if project %}
+        <form action="{{ url_for('update_project', project_id=project.id) }}" method="post">
+    {% else %}
+        <form action="new" method="post">
+    {% endif %}
+            <p><label>Project Name</label></p>
+            <p><input type="text" name="title" value='{% if project %}{{project.title}} {% endif %}'/></p>
+            <p><label>Text</label></p>
+            <p>
+                <textarea name="projectText"  rows="6" cols="0" >
+                    {% if note %}
+                        {{project.text}}
+                    {% else %}
+                        Add project details here
+                    {% endif %}
+                </textarea>
+            </p>
+            <p>
+                {% if note %}
+                    <input type="submit" value="Update Project"/>
+                {% else %} 
+                    <input type="submit" value="Add Project"/>
+                {% endif %}
+            </p>
+        </form>
     </body>
 </html>
