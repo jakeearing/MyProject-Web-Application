@@ -61,7 +61,6 @@ def update_project(project_id):
     if request.method == 'POST':
         
         title = request.form['title']
-        
         text = request.form['projectText']
         project = db.session.query(Project).filter_by(id=project_id).one()
         
@@ -75,10 +74,9 @@ def update_project(project_id):
     
     else:
         a_user = db.session.query(User).filter_by(email='jearing@uncc.edu').one()
-    
         my_project = db.session.query(Project).filter_by(id=project_id).one()
     
-        return render_template('new.html', project=my_project, user=a_user)
+        return render_template('project/new.html', project=my_project, user=a_user)
 
 @app.route('/projects/delete/<project_id>', methods=['POST'])
 def delete_project(project_id):

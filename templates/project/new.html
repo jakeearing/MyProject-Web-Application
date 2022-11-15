@@ -6,7 +6,7 @@
         <meta name="description" content="MyProject">
         <title>MyProject - Create New Project</title>
         <!-- styles -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <nav>
@@ -33,7 +33,7 @@
                 </textarea>
             </p>
             <p>
-                {% if note %}
+                {% if project %}
                     <input type="submit" value="Update Project"/>
                 {% else %} 
                     <input type="submit" value="Add Project"/>
