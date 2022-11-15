@@ -45,8 +45,9 @@ def new_project():
         from datetime import date
         today = date.today()
         today=today.strftime("%m-%d-%Y")
+        manager_id = db.session.query(User).filter_by(email='jearing@uncc.edu').one().id
         
-        new_project = Project(title, text, today)
+        new_project = Project(title, text, today, manager_id)
         db.session.add(new_project)
         db.session.commit()
         
