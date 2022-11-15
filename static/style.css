@@ -1,24 +1,42 @@
-nav
-{
-    background-color: #4285f4;
-    font-weight: bold;
-    width: 100%;
-    margin: 0px;
+html{
+    font-family: Garamond;
 }
 body
 {
-    padding: 0px;
+    text-align: center;
+    top: 0;
+    bottom: 0;
+}
+header
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    background-color: #4285f4;
+    width: 100%;
+    margin: 0;
+    font-weight: bold;
+}
+nav{
+    position: relative;
+    margin-top: auto;
 }
 a
 {
     color: black;
+    font-size: 20px;
     text-decoration: none;
+    
 }
-h1
-{
-    text-align: center;
+.content{
+    position: relative;
+    top:50px;
 }
-h2
-{
-    text-align: center;
+table{
+    margin: auto auto auto auto;
+    border-spacing: 50px 0;
+}
+form{
+    display: inline block;
 }
