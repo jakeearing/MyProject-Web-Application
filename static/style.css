@@ -18,9 +18,9 @@ header
     margin: 0;
     font-weight: bold;
 }
-nav{
+header nav{
     position: relative;
-    margin-top: auto;
+    margin-top: 12px;
 }
 a
 {
