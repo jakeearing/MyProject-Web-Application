@@ -12,7 +12,7 @@ header
     position: absolute;
     top: 0;
     left: 0;
-    height: 50px;
+    height: 80px;
     background-color: #4285f4;
     width: 100%;
     margin: 0;
@@ -31,7 +31,7 @@ a
 }
 .content{
     position: relative;
-    top:50px;
+    top:80px;
 }
 table{
     margin: auto auto auto auto;
