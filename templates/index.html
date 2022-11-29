@@ -15,10 +15,20 @@
                 <a href="/projects">My Projects</a> ||
                 <a href="/projects/new">Add Project</a>
             </nav>
+        {% if user %}
+            <nav>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
+        {% else %}
+            <nav>
+                <a href="{{ url_for('login') }}">Sign In</a> ||
+                <a href="{{ url_for('register') }}">Register</a>
+            </nav>
+        {% endif %}
         </header>
         
         <div class=content>
-        <h1>Welcome {{user}} to MyProject!</h1>
+        <h1>Welcome {% if user %}{{user}}{% endif %} to MyProject!</h1>
 
         <h2>With MyProject, you can create, edit and colloborate on projects!</h2>
 
