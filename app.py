@@ -128,8 +128,9 @@ def register():
 
         first_name = request.form['firstname']
         last_name = request.form['lastname']
+        username = request.form['username']
 
-        new_user = User(first_name, last_name, first_name, request.form['email'], h_password)
+        new_user = User(first_name, last_name, username, request.form['email'], h_password)
 
         db.session.add(new_user)
         db.session.commit()

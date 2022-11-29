@@ -40,7 +40,7 @@ class User(db.Model):
     email = db.Column("email", db.String(50))
     password = db.Column("password", db.String(50), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
-    projectss = db.relationship("Project", backref="user", lazy=True)
+    projects = db.relationship("Project", backref="user", lazy=True)
     comments = db.relationship("Comment", backref="user", lazy=True)
 
     def __init__(self, fname, lname, username, email, password):

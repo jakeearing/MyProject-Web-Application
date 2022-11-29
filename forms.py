@@ -15,6 +15,8 @@ class RegisterForm(FlaskForm):
     firstname = StringField('First Name', validators=[Length(1, 10)])
 
     lastname = StringField('Last Name', validators=[Length(1, 20)])
+    
+    username = StringField('Username', validators=[Length(1, 20)])
 
     email = StringField('Email', [
         Email(message='Not a valid email address.'),
