@@ -26,58 +26,66 @@ def index():
 def get_projects():
     if session.get('user'):
         my_projects = db.session.query(Project).all()
-        return render_template('projects.html', projects = my_projects, user=session['user'])
+        return render_template('project/projects.html', projects = my_projects, user=session['user'])
     else:
         return redirect(url_for('login'))
 
 @app.route('/projects/<project_id>')
 def get_project(project_id):
-    a_user =  db.session.query(User).filter_by(email='jearing@uncc.edu').one()
-    my_project = db.session.query(Project).filter_by(id=project_id).one()
-    return render_template('project/project.html', project=my_project, user = a_user)
+    if session.get('user'):
+        my_project = db.session.query(Project).filter_by(id=project_id).one()
+
+        form = CommentForm()
+        
+        return render_template('project/project.html', project = my_project, user=session['user'], form=form)
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/projects/new', methods=['GET', 'POST'])
 def new_project():
     
-    print('request method is',request.method)
-    if request.method == 'POST':
-        title = request.form['title']
-        text = request.form['projectText']
-        from datetime import date
-        today = date.today()
-        today=today.strftime("%m-%d-%Y")
-        manager_id = db.session.query(User).filter_by(email='jearing@uncc.edu').one().id
+    if session.get('user'):
+        if request.method == 'POST':
+            
+            title = request.form['title']
+            text = request.form['projectText']
+            from datetime import date
+            today = date.today()
+            today=today.strftime("%m-%d-%Y")
         
-        new_project = Project(title, text, today, manager_id)
-        db.session.add(new_project)
-        db.session.commit()
+            new_record = Project(title, text, today, session['user_id'])
+            db.session.add(new_record)
+            db.session.commit()
         
-        return redirect(url_for('get_projects'))
+            return redirect(url_for('get_projects'))
+        else:
+            return render_template('project/new.html', user=session['user'])
     else:
-        a_user =  db.session.query(User).filter_by(email='jearing@uncc.edu').one()
-        return render_template('project/new.html', user=a_user)
+        return redirect(url_for('login'))
     
 @app.route('/projects/edit/<project_id>', methods=['GET', 'POST'])
 def update_project(project_id):
-    if request.method == 'POST':
+    if session.get('user'):
+        if request.method == 'POST':
+            
+            title = request.form['title']
+            
+            text = request.form['projectText']
+            project = db.session.query(Project).filter_by(id=project_id).one()
+            
+            project.title = title
+            project.text = text
+            
+            db.session.add(project)
+            db.session.commit()
+            
+            return redirect(url_for('get_projects'))    
+        else:
+            my_project = db.session.query(Project).filter_by(id=project_id).one()
         
-        title = request.form['title']
-        text = request.form['projectText']
-        project = db.session.query(Project).filter_by(id=project_id).one()
-        
-        project.title = title
-        project.text = text
-        
-        db.session.add(project)
-        db.session.commit()
-        
-        return redirect(url_for('get_projects'))
-    
+            return render_template('project/new.html', project=my_project, user=session['user'])
     else:
-        a_user = db.session.query(User).filter_by(email='jearing@uncc.edu').one()
-        my_project = db.session.query(Project).filter_by(id=project_id).one()
-    
-        return render_template('project/new.html', project=my_project, user=a_user)
+        return redirect(url_for('login'))
     
 @app.route('/projects/<project_id>/comment', methods=['POST'])
 def new_comment(project_id):
@@ -99,11 +107,15 @@ def new_comment(project_id):
 @app.route('/projects/delete/<project_id>', methods=['POST'])
 def delete_project(project_id):
     
-    my_project = db.session.query(Project).filter_by(id=project_id).one()
-    db.session.delete(my_project)
-    db.session.commit()
+    if session.get('user'):
+        my_project = db.session.query(Project).filter_by(id=project_id).one()
+        
+        db.session.delete(my_project)
+        db.session.commit()
     
-    return redirect(url_for('get_projects'))
+        return redirect(url_for('get_projects'))
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -117,7 +129,7 @@ def register():
         first_name = request.form['firstname']
         last_name = request.form['lastname']
 
-        new_user = User(first_name, last_name, request.form['email'], h_password)
+        new_user = User(first_name, last_name, first_name, request.form['email'], h_password)
 
         db.session.add(new_user)
         db.session.commit()
@@ -152,6 +164,12 @@ def login():
     else:
         # form did not validate or GET request
         return render_template("account/login.html", form=login_form)
+    
+@app.route('/account/<user_id>') 
+def account():
+    if session.get('user'):
+        return render_template('account/account.html', user = session['user'])
+    return render_template('account/login.html')
     
 @app.route('/logout')
 def logout():
