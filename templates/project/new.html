@@ -46,6 +46,7 @@
                     {% endif %}
                 </textarea>
             </p>
+            {% if project %}
             <p>
                 {% if project.imageUrl %}
                     <input type="text" value='{{project.title}}'/>
@@ -53,6 +54,7 @@
                     <input type="text" placeholder="Add Image URL"/>
                 {% endif %}
             </p>
+            {% endif %}
             <p>
                 {% if project %}
                     <input type="submit" value="Update Project"/>
