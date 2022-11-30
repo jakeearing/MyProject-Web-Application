@@ -1,18 +1,15 @@
-html{
+html {
     font-family: Garamond;
 }
-body
-{
+body {
     text-align: center;
     top: 0;
     bottom: 0;
 }
-header
-{
+header {
     top: 0;
 }
-header, footer
-{
+header, footer {
     position: absolute;
     left: 0;
     background-color: #4285f4;
@@ -20,35 +17,36 @@ header, footer
     margin: 0;
     font-weight: bold;
 }
-header nav{
+header nav {
     position: relative;
     margin-top: 12px;
 }
-a
-{
+a {
     color: black;
     font-size: 20px;
     text-decoration: none;
-    
 }
-.content{
+.content {
     position: relative;
     top:80px;
 }
-table{
+table {
     margin: auto auto auto auto;
     border-spacing: 50px 0;
 }
-form{
+form {
     display: inline block;
 }
-header
-{
+header {
     bottom: 0;
     height: 80px;
 }
-footer
-{
+footer {
     bottom: 0;
     height: 40px;
 }
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
