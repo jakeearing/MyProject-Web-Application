@@ -9,8 +9,11 @@ body
 }
 header
 {
-    position: absolute;
     top: 0;
+}
+header, footer
+{
+    position: absolute;
     left: 0;
     height: 80px;
     background-color: #4285f4;
@@ -39,4 +42,8 @@ table{
 }
 form{
     display: inline block;
+}
+header
+{
+    bottom: 0;
 }
