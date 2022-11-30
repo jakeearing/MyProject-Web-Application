@@ -36,14 +36,12 @@
                 <th>Text</th>
                 <th>Date</th>
                 <th>Project Manager</th>
-                <th>Employees</th>
             </tr>
             <tr>
                 <td>{{ project.title }}</td>
                 <td>{{ project.text }}</td>
                 <td>{{ project.date }}</td>
                 <td>{{ project.manager }}</td>
-                <td>Employee Names here</td>
             </tr>
         </table>
         
@@ -56,7 +54,7 @@
                 <h2>Comments</h2>
                 <ul>
                 {% for comment in project.comments %}
-                     <li>{{ comment.content }}</li>
+                     <li>{{ comment.content }} - {{ comment.user_name }}</li>
                 {% endfor %}
                 </ul>
             {% endif %}

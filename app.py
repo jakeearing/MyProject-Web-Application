@@ -95,7 +95,7 @@ def new_comment(project_id):
         if comment_form.validate_on_submit():
             # get comment data
             comment_text = request.form['comment']
-            new_record = Comment(comment_text, int(project_id), session['user_id'])
+            new_record = Comment(comment_text, int(project_id), session['user'])
             db.session.add(new_record)
             db.session.commit()
 
