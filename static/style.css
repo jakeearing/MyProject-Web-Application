@@ -15,7 +15,6 @@ header, footer
 {
     position: absolute;
     left: 0;
-    height: 80px;
     background-color: #4285f4;
     width: 100%;
     margin: 0;
@@ -46,4 +45,10 @@ form{
 header
 {
     bottom: 0;
+    height: 80px;
+}
+footer
+{
+    bottom: 0;
+    height: 40px;
 }
