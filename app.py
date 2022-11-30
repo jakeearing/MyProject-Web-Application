@@ -53,7 +53,7 @@ def new_project():
             today = date.today()
             today=today.strftime("%m-%d-%Y")
         
-            new_record = Project(title, text, today, session['user_id'])
+            new_record = Project(title, text, today, session['user'])
             db.session.add(new_record)
             db.session.commit()
         

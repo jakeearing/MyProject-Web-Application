@@ -28,8 +28,8 @@
         </header>
         <div class=content>
         <h1>Welcome {% if user %}{{user}}{% endif %} to MyProject!</h1>
-        
-        {% if project %}
+
+    {% if project %}
         <form action="{{ url_for('update_project', project_id=project.id) }}" method="post">
     {% else %}
         <form action="new" method="post">
@@ -45,6 +45,13 @@
                         Add project details here
                     {% endif %}
                 </textarea>
+            </p>
+            <p>
+                {% if project.imageUrl %}
+                    <input type="text" value='{{project.title}}'/>
+                {% else %} 
+                    <input type="text" placeholder="Add Image URL"/>
+                {% endif %}
             </p>
             <p>
                 {% if project %}

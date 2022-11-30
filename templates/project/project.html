@@ -35,15 +35,22 @@
                 <th>Title</th>
                 <th>Text</th>
                 <th>Date</th>
-                <th>Project Manager ID</th>
+                <th>Project Manager</th>
+                <th>Employees</th>
             </tr>
             <tr>
                 <td>{{ project.title }}</td>
                 <td>{{ project.text }}</td>
                 <td>{{ project.date }}</td>
-                <td>{{ project.manager_id }}</td>
+                <td>{{ project.manager }}</td>
+                <td>Employee Names here</td>
             </tr>
         </table>
+        
+        {% if project.imageUrl %}
+            <img src='{{project.imageURL}}' alt="Project Image">
+        {% endif %}
+
         {%if project.comments %}
             {% if project.comments|length > 0 %}
                 <h2>Comments</h2>
