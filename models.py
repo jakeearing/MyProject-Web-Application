@@ -41,7 +41,7 @@ class Comment(db.Model):
     user_name = db.Column(db.Integer, db.ForeignKey("user.username"), nullable=False)
 
     def __init__(self, content, project_id, user_name):
-        self.date_posted = datetime.date.today()
+        self.date_posted = datetime.datetime.today().replace(microsecond=0)
         self.content = content
         self.project_id = project_id
         self.user_name = user_name
