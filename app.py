@@ -135,7 +135,9 @@ def register():
         db.session.commit()
 
         session['user'] = first_name
-        session['user_id'] = new_user.id  # access id value from user model of this newly added user
+        session['user_id'] = new_user.id 
+        session['user_username'] = new_user.username
+        session['user_email'] = new_user.email
 
         return redirect(url_for('get_projects'))
 
