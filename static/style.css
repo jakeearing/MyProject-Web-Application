@@ -9,10 +9,21 @@ body {
 header {
     top: 0;
 }
+.logo {
+    position: absolute;
+    top: -10px;
+    left: 35px;
+    width: fit-content;
+    display: inline-block;
+}
+.logo p {
+    font-weight: 2;
+    font-size: 30px;
+}
 header, footer {
     position: absolute;
     left: 0;
-    background-color: #4285f4;
+    background-color: lightblue;
     width: 100%;
     margin: 0;
     font-weight: bold;

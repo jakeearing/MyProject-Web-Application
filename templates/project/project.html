@@ -10,6 +10,9 @@
     </head>
     <body>
         <header>
+            <a href="/"><div class = "logo">
+                <p>My<span style="color:blue;"><b>Project</b></span></p>
+            </div></a>
             <nav>
                 <a href="/">Home</a> ||
                 <a href="/projects">My Projects</a> ||
@@ -17,6 +20,7 @@
             </nav>
         {% if user %}
             <nav>
+                <a href="{{ url_for('account') }}">Account</a> ||
                 <a href="{{ url_for('logout') }}">Logout</a>
             </nav>
         {% else %}
@@ -45,13 +49,13 @@
             </tr>
         </table>
         
-        {% if project.imageUrl %}
-            <img src='{{project.imageURL}}' alt="Project Image">
+        {% if project.imageUrl != "" %}
+            <img src={{project.imageURL}} alt="Project Image">
         {% endif %}
 
         {%if project.comments %}
             {% if project.comments|length > 0 %}
-                <h2>Comments</h2>
+                <h2>Tasks / Comments</h2>
                 <ul>
                 {% for comment in project.comments %}
                      <li>{{ comment.content }} - {{ comment.user_name }}</li>

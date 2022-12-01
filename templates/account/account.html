@@ -10,6 +10,9 @@
     </head>
     <body>
         <header>
+            <a href="/"><div class = "logo">
+                <p>My<span style="color:blue;"><b>Project</b></span></p>
+            </div></a>
             <nav>
                 <a href="/">Home</a> ||
                 <a href="/projects">My Projects</a> ||
@@ -17,6 +20,7 @@
             </nav>
         {% if user %}
             <nav>
+                <a href="{{ url_for('account') }}">Account</a> ||
                 <a href="{{ url_for('logout') }}">Logout</a>
             </nav>
         {% else %}
@@ -26,8 +30,37 @@
             </nav>
         {% endif %}
         </header>
+        
         <div class=content>
+            <h1>{% if user %}{{user}}{% endif %}'s Account</h1>
+                <h1>{{ username }}</h1>
 
+            <h1>Projects</h1>
+            {% for project in projects%}
+            {% if project.manager == user: %} 
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Project Manager</th>
+                </tr>
+                <tr>
+                    <td><a href="{{ url_for('get_project', project_id=project.id) }}">{{ project.title }}</a></td>
+                    <td>{{ project.date }}</td>
+                    <td>{{ project.manager }}</td>
+    
+                    <td><a href="{{ url_for('update_project', project_id=project.id)}}">Edit</a></td>
+                    <td>
+                        <form action="{{ url_for('delete_project', project_id=project.id) }}" method="post">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr> 
+            </table>
+            {% endif %}
+            {% endfor %}
         </div>
+    <footer>
+    </footer>
     </body>
 </html>
