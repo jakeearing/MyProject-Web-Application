@@ -46,10 +46,10 @@
                 <td>{{ project.date }}</td>
                 <td>{{ project.manager }}</td>
             </tr>
-        </table>
+        </table><br>
         
         {% if project.imageUrl != "" %}
-            <img src={{project.imageURL}} alt="Project Image">
+        <img src={{project.imageURL}} id="projectImg" alt="Project Image">
         {% endif %}
 
         {% if user %}
@@ -60,17 +60,25 @@
                 {% for comment in project.comments %}
                      <li>{{ comment.content }} - {{ comment.user_name }} - Posted on: {{ comment.date_posted }}</li>
                 {% endfor %}
-                </ul>
+                </ul><br>
             {% endif %}
         {% endif %}
         <form action="{{ url_for('new_comment', project_id=project.id) }}" method="post">
         <div class="formwrapper">
-            <h2 class="title">Add a comment</h2>
                 <div class="form-field">
                     {{ form.comment.label }} <br/> {{ form.comment }}
                 </div>
             {{ form.submit }}
-        </div>
+        </div><br>
+        {%if project.manager == username %}
+        <td><a href="{{ url_for('update_project', project_id=project.id)}}">Edit</a></td>
+                <td>
+                    <form action="{{ url_for('delete_project', project_id=project.id) }}" method="post">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+        {% endif %}
+        <br>
         {% endif %}
     </div>
     <footer>

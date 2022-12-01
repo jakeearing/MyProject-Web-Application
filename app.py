@@ -36,7 +36,7 @@ def get_project(project_id):
     project = db.session.query(Project).filter_by(id=project_id).first()
     if session.get('user'):
         form = CommentForm()
-        return render_template('project/project.html', project = project, user=session['user'], form=form)
+        return render_template('project/project.html', project = project, user=session['user'], username=session['user_username'], form=form)
     else:
         return render_template('project/project.html', project = project)
 
@@ -51,7 +51,8 @@ def new_project():
             from datetime import date
             today = date.today()
             today=today.strftime("%m-%d-%Y")
-            new_record = Project(title, text, today, session['user_username'], "")
+            placeholderImage = "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+            new_record = Project(title, text, today, session['user_username'], placeholderImage)
             db.session.add(new_record)
             db.session.commit()
         
@@ -67,14 +68,15 @@ def update_project(project_id):
         if request.method == 'POST':
             
             title = request.form['title']
-            
             text = request.form['projectText']
+            image = request.form['projectImg']
             
             #find project by id, and make sure the user deleting the project is the project manager
             project = db.session.query(Project).filter_by(id=project_id, manager=session['user_username']).one()
             
             project.title = title
             project.text = text
+            project.imageURL = image
             
             db.session.add(project)
             db.session.commit()

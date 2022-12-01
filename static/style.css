@@ -1,16 +1,16 @@
 html {
     font-family: Garamond;
+    height: 100%;
     background-image: url(background.svg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover;  
+    background-position: inherit;
+    background-position-y: 80px;
 }
 body {
     text-align: center;
     top: 0;
     bottom: 0;
-}
-header {
-    top: 0;
 }
 .logo {
     position: absolute;
@@ -23,7 +23,8 @@ header {
     font-weight: 2;
     font-size: 30px;
 }
-header, footer {
+header{
+    top: 0;
     position: absolute;
     left: 0;
     background-color: rgba(0, 102, 255, 0.637);
@@ -55,12 +56,13 @@ header {
     bottom: 0;
     height: 80px;
 }
-footer {
-    bottom: 0;
-    height: 40px;
-}
 ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
+#projectImg {
+    width: fit-content;
+    max-height: 15vh;
+    width: auto;
+}
