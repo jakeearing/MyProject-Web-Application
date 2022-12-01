@@ -58,7 +58,7 @@
                 <h2>Tasks / Comments</h2>
                 <ul>
                 {% for comment in project.comments %}
-                     <li>{{ comment.content }} - {{ comment.user_name }}</li>
+                     <li>{{ comment.content }} - {{ comment.user_name }} - Posted on: {{ comment.date_posted }}</li>
                 {% endfor %}
                 </ul>
             {% endif %}
