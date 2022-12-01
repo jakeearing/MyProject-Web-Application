@@ -168,8 +168,9 @@ def login():
     
 @app.route('/account') 
 def account():
-    if session.get('user'):
+    if session.get('user'): 
         projects = db.session.query(Project).all()
+        
         return render_template('account/account.html', user = session['user'], projects = projects)
     return render_template('account/login.html', projects)
     
@@ -178,8 +179,6 @@ def logout():
     # check if a user is saved in session
     if session.get('user'):
         session.clear()
-
     return redirect(url_for('index'))
-    
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True)
