@@ -169,8 +169,9 @@ def login():
 @app.route('/account') 
 def account():
     if session.get('user'):
-        return render_template('account/account.html', user = session['user'])
-    return render_template('account/login.html')
+        projects = db.session.query(Project).all()
+        return render_template('account/account.html', user = session['user'], projects = projects)
+    return render_template('account/login.html', projects)
     
 @app.route('/logout')
 def logout():

@@ -23,7 +23,7 @@ header {
 header, footer {
     position: absolute;
     left: 0;
-    background-color: lightblue;
+    background-color: rgba(0, 102, 255, 0.637);
     width: 100%;
     margin: 0;
     font-weight: bold;
