@@ -70,7 +70,9 @@ def update_project(project_id):
             title = request.form['title']
             
             text = request.form['projectText']
-            project = db.session.query(Project).filter_by(id=project_id).one()
+            
+            #find project by id, and make sure the user deleting the project is the project manager
+            project = db.session.query(Project).filter_by(id=project_id, manager=session['user_username']).one()
             
             project.title = title
             project.text = text
@@ -107,7 +109,8 @@ def new_comment(project_id):
 def delete_project(project_id):
     
     if session.get('user'):
-        project = db.session.query(Project).filter_by(id=project_id).one()
+        #find project by id, and make sure the user deleting the project is the project manager
+        project = db.session.query(Project).filter_by(id=project_id, manager=session['user_username']).one()
         
         db.session.delete(project)
         db.session.commit()
@@ -135,8 +138,9 @@ def register():
         db.session.commit()
 
         session['user'] = first_name
+        session['user_lname'] = last_name
         session['user_id'] = new_user.id 
-        session['user_username'] = new_user.username
+        session['user_username'] = username
         session['user_email'] = new_user.email
 
         return redirect(url_for('get_projects'))
@@ -156,6 +160,7 @@ def login():
 
             #Set session user, user id, username and email
             session['user'] = the_user.fname
+            session['user_lname'] = the_user.lname
             session['user_id'] = the_user.id
             session['user_username'] = the_user.username
             session['user_email'] = the_user.email
@@ -171,7 +176,7 @@ def login():
 def account():
     if session.get('user'): 
         projects = db.session.query(Project).filter_by(manager=session['user_username']).all()
-        return render_template('account/account.html', user = session['user'], projects = projects, username = session['user_username'], email = session['user_email'])
+        return render_template('account/account.html', user = session['user'], lname = session['user_lname'], projects = projects, username = session['user_username'], email = session['user_email'])
     else:
         return redirect(url_for('login'))
     
