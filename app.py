@@ -24,12 +24,12 @@ def index():
 
 @app.route('/projects')
 def get_projects():
+    allprojects = db.session.query(Project).all()
     if session.get('user'):
         projects = db.session.query(Project).filter_by(manager=session['user_username']).all()
-        return render_template('project/projects.html', projects = projects, user=session['user'], username=session['user_username'])
+        return render_template('project/projects.html', projects = projects, allprojects = allprojects ,user=session['user'], username=session['user_username'] )
     else:
-        projects = db.session.query(Project).all()
-        return render_template('project/projects.html', projects = projects)
+        return render_template('project/projects.html', projects = projects, allprojects = allprojects)
 
 @app.route('/projects/<project_id>')
 def get_project(project_id):
