@@ -33,7 +33,7 @@ def get_projects():
 
 @app.route('/projects/<project_id>')
 def get_project(project_id):
-    project = db.session.query(Project).filter_by(id=project_id).one()
+    project = db.session.query(Project).filter_by(id=project_id).first()
     if session.get('user'):
         form = CommentForm()
         return render_template('project/project.html', project = project, user=session['user'], form=form)
@@ -51,8 +51,7 @@ def new_project():
             from datetime import date
             today = date.today()
             today=today.strftime("%m-%d-%Y")
-        
-            new_record = Project(title, text, today, session['user_username'])
+            new_record = Project(title, text, today, session['user_username'], "")
             db.session.add(new_record)
             db.session.commit()
         

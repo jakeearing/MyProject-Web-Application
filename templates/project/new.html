@@ -31,13 +31,11 @@
         {% endif %}
         </header>
         <div class=content>
-        <h1>Welcome {% if user %}{{user}}{% endif %} to MyProject!</h1>
-
-    {% if project %}
-        <form action="{{ url_for('update_project', project_id=project.id) }}" method="post">
-    {% else %}
-        <form action="new" method="post">
-    {% endif %}
+        {% if project %}
+            <form action="{{ url_for('update_project', project_id=project.id) }}" method="post">
+        {% else %}
+            <form action="new" method="post">
+        {% endif %}
             <p><label>Project Name</label></p>
             <p><input type="text" name="title" value='{% if project %}{{project.title}} {% endif %}'/></p>
             <p><label>Text</label></p>

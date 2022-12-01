@@ -7,14 +7,15 @@ class Project(db.Model):
     text = db.Column("text", db.String(100))
     date = db.Column("date", db.String(50))
     manager = db.Column(db.String, db.ForeignKey("user.username"), nullable=False)
-    imageURL = db.Column("imageURL", db.String, nullable=True)
+    imageURL = db.Column("imageURL", db.String(100))
     comments = db.relationship("Comment", backref="note", cascade="all, delete-orphan", lazy=True)
 
-    def __init__(self, title, text, date, manager):
+    def __init__(self, title, text, date, manager, imageURL):
         self.title = title
         self.text = text
         self.date = date
         self.manager = manager
+        self.imageURL = imageURL
 
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
