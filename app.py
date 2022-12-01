@@ -24,23 +24,20 @@ def index():
 
 @app.route('/projects')
 def get_projects():
-    projects = db.session.query(Project).all()
     if session.get('user'):
-        return render_template('project/projects.html', projects = projects, user=session['user'])
+        projects = db.session.query(Project).filter_by(manager=session['user_username']).all()
+        return render_template('project/projects.html', projects = projects, user=session['user'], username=session['user_username'])
     else:
+        projects = db.session.query(Project).all()
         return render_template('project/projects.html', projects = projects)
 
 @app.route('/projects/<project_id>')
 def get_project(project_id):
+    project = db.session.query(Project).filter_by(id=project_id).one()
     if session.get('user'):
-        project = db.session.query(Project).filter_by(id=project_id).one()
-
         form = CommentForm()
-        
         return render_template('project/project.html', project = project, user=session['user'], form=form)
     else:
-        project = db.session.query(Project).filter_by(id=project_id).one()
-        
         return render_template('project/project.html', project = project)
 
 @app.route('/projects/new', methods=['GET', 'POST'])
@@ -55,7 +52,7 @@ def new_project():
             today = date.today()
             today=today.strftime("%m-%d-%Y")
         
-            new_record = Project(title, text, today, session['user'])
+            new_record = Project(title, text, today, session['user_username'])
             db.session.add(new_record)
             db.session.commit()
         
@@ -97,7 +94,7 @@ def new_comment(project_id):
         if comment_form.validate_on_submit():
             # get comment data
             comment_text = request.form['comment']
-            new_record = Comment(comment_text, int(project_id), session['user'])
+            new_record = Comment(comment_text, int(project_id), session['user_username'])
             db.session.add(new_record)
             db.session.commit()
 
@@ -110,9 +107,9 @@ def new_comment(project_id):
 def delete_project(project_id):
     
     if session.get('user'):
-        my_project = db.session.query(Project).filter_by(id=project_id).one()
+        project = db.session.query(Project).filter_by(id=project_id).one()
         
-        db.session.delete(my_project)
+        db.session.delete(project)
         db.session.commit()
     
         return redirect(url_for('get_projects'))
@@ -155,29 +152,24 @@ def login():
 
         if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.password):
 
+            #Set session user, user id, username and email
             session['user'] = the_user.fname
             session['user_id'] = the_user.id
-            # render view
+            session['user_username'] = the_user.username
+            session['user_email'] = the_user.email
+ 
             return redirect(url_for('get_projects'))
 
-        # password check failed
-        # set error message to alert user
         login_form.password.errors = ["Incorrect username or password."]
         return render_template("account/login.html", form=login_form)
     else:
-        # form did not validate or GET request
         return render_template("account/login.html", form=login_form)
     
 @app.route('/account') 
 def account():
     if session.get('user'): 
-        projects = db.session.query(Project).all()
-        
-        user_account = db.session.query(User).filter_by(id = session['user_id']).one()
-        username = user_account.username
-        email = user_account.email
-        
-        return render_template('account/account.html', user = session['user'], projects = projects, username = username, email = email)
+        projects = db.session.query(Project).filter_by(manager=session['user_username']).all()
+        return render_template('account/account.html', user = session['user'], projects = projects, username = session['user_username'], email = session['user_email'])
     else:
         return redirect(url_for('login'))
     

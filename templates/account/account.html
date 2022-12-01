@@ -39,7 +39,6 @@
 
             <h1>Managed Projects</h1>
             {% for project in projects%}
-            {% if project.manager == user: %} 
             <table>
                 <tr>
                     <th>Title</th>
@@ -59,7 +58,6 @@
                     </td>
                 </tr> 
             </table>
-            {% endif %}
             {% endfor %}
         </div>
     <footer>

@@ -34,16 +34,14 @@
     <div class=content>
 
         {% if not user %}
-        <h1>Create an account to start your own projects!</h1>
+        <p>Create an account to start your own projects!</p>
         {% endif %}
 
         {% if user %}
         <h1>Welcome {{user}} to MyProject!</h1>
         <h1>My Projects</h1>
         
-
         {% for project in projects%}
-        {% if project.manager == user: %} 
         <table>
             <tr>
                 <th>Title</th>
@@ -63,13 +61,12 @@
                 </td>
             </tr> 
         </table>
-        {% endif %}
         {% endfor %}
         {% endif %}
 
         <h1>All Projects</h1>
         {% for project in projects%}
-        {% if project.manager != user: %} 
+        {% if project.manager != username: %} 
         <table>
             <tr>
                 <th>Title</th>
@@ -80,7 +77,6 @@
                 <td><a href="{{ url_for('get_project', project_id=project.id) }}">{{ project.title }}</a></td>
                 <td>{{ project.date }}</td>
                 <td>{{ project.manager }}</td>
-
             </tr> 
         </table>
         {% endif %}

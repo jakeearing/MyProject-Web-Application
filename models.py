@@ -6,7 +6,7 @@ class Project(db.Model):
     title = db.Column("title", db.String(200))
     text = db.Column("text", db.String(100))
     date = db.Column("date", db.String(50))
-    manager = db.Column(db.String, db.ForeignKey("user.fname"), nullable=False)
+    manager = db.Column(db.String, db.ForeignKey("user.username"), nullable=False)
     imageURL = db.Column("imageURL", db.String, nullable=True)
     comments = db.relationship("Comment", backref="note", cascade="all, delete-orphan", lazy=True)
 
@@ -24,8 +24,6 @@ class User(db.Model):
     email = db.Column("email", db.String(50))
     password = db.Column("password", db.String(50), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
-    projects = db.relationship("Project", backref="user", lazy=True)
-    comments = db.relationship("Comment", backref="user", lazy=True)
 
     def __init__(self, fname, lname, username, email, password):
         self.fname = fname
@@ -40,7 +38,7 @@ class Comment(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False)
     content = db.Column(db.VARCHAR, nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
-    user_name = db.Column(db.Integer, db.ForeignKey("user.fname"), nullable=False)
+    user_name = db.Column(db.Integer, db.ForeignKey("user.username"), nullable=False)
 
     def __init__(self, content, project_id, user_name):
         self.date_posted = datetime.date.today()
