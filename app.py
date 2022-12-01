@@ -25,8 +25,8 @@ def index():
 @app.route('/projects')
 def get_projects():
     if session.get('user'):
-        my_projects = db.session.query(Project).all()
-        return render_template('project/projects.html', projects = my_projects, user=session['user'])
+        projects = db.session.query(Project).all()
+        return render_template('project/projects.html', projects = projects, user=session['user'])
     else:
         return redirect(url_for('login'))
 
@@ -166,7 +166,7 @@ def login():
         # form did not validate or GET request
         return render_template("account/login.html", form=login_form)
     
-@app.route('/account/<user_id>') 
+@app.route('/account') 
 def account():
     if session.get('user'):
         return render_template('account/account.html', user = session['user'])
