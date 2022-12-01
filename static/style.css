@@ -1,5 +1,8 @@
 html {
     font-family: Garamond;
+    background-image: url(background.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 body {
     text-align: center;
