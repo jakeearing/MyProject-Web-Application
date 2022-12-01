@@ -15,7 +15,7 @@
             </div></a>
             <nav>
                 <a href="/">Home</a> ||
-                <a href="/projects">My Projects</a> ||
+                <a href="/projects">Projects</a> ||
                 <a href="/projects/new">Add Project</a>
             </nav>
         {% if user %}
@@ -31,7 +31,6 @@
         {% endif %}
         </header>
     <div class=content>
-        <h1>Welcome {% if user %}{{user}}{% endif %} to MyProject!</h1>
         <h1>Project Details</h1>
         
         <table>
@@ -53,6 +52,7 @@
             <img src={{project.imageURL}} alt="Project Image">
         {% endif %}
 
+        {% if user %}
         {%if project.comments %}
             {% if project.comments|length > 0 %}
                 <h2>Tasks / Comments</h2>
@@ -71,6 +71,7 @@
                 </div>
             {{ form.submit }}
         </div>
+        {% endif %}
     </div>
     <footer>
     </footer>

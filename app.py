@@ -24,22 +24,24 @@ def index():
 
 @app.route('/projects')
 def get_projects():
+    projects = db.session.query(Project).all()
     if session.get('user'):
-        projects = db.session.query(Project).all()
         return render_template('project/projects.html', projects = projects, user=session['user'])
     else:
-        return redirect(url_for('login'))
+        return render_template('project/projects.html', projects = projects)
 
 @app.route('/projects/<project_id>')
 def get_project(project_id):
     if session.get('user'):
-        my_project = db.session.query(Project).filter_by(id=project_id).one()
+        project = db.session.query(Project).filter_by(id=project_id).one()
 
         form = CommentForm()
         
-        return render_template('project/project.html', project = my_project, user=session['user'], form=form)
+        return render_template('project/project.html', project = project, user=session['user'], form=form)
     else:
-        return redirect(url_for('login'))
+        project = db.session.query(Project).filter_by(id=project_id).one()
+        
+        return render_template('project/project.html', project = project)
 
 @app.route('/projects/new', methods=['GET', 'POST'])
 def new_project():
@@ -171,8 +173,13 @@ def account():
     if session.get('user'): 
         projects = db.session.query(Project).all()
         
-        return render_template('account/account.html', user = session['user'], projects = projects)
-    return render_template('account/login.html', projects)
+        user_account = db.session.query(User).filter_by(id = session['user_id']).one()
+        username = user_account.username
+        email = user_account.email
+        
+        return render_template('account/account.html', user = session['user'], projects = projects, username = username, email = email)
+    else:
+        return redirect(url_for('login'))
     
 @app.route('/logout')
 def logout():
