@@ -29,7 +29,7 @@ def get_projects():
         projects = db.session.query(Project).filter_by(manager=session['user_username']).all()
         return render_template('project/projects.html', projects = projects, allprojects = allprojects ,user=session['user'], username=session['user_username'] )
     else:
-        return render_template('project/projects.html', projects = projects, allprojects = allprojects)
+        return render_template('project/projects.html', allprojects = allprojects)
 
 @app.route('/projects/<project_id>')
 def get_project(project_id):
