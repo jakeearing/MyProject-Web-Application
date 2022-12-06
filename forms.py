@@ -30,7 +30,7 @@ class RegisterForm(FlaskForm):
     confirmPassword = PasswordField('Confirm Password', validators=[
         Length(min=6, max=10)
     ])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Create Account')
 
     def validate_email(self, field):
         if db.session.query(User).filter_by(email=field.data).count() != 0:
@@ -48,7 +48,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', [
         DataRequired(message="Please enter a password.")])
 
-    submit = SubmitField('Submit')
+    submit = SubmitField('Login')
 
     def validate_email(self, field):
         if db.session.query(User).filter_by(email=field.data).count() == 0:
