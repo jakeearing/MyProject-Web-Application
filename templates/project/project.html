@@ -65,20 +65,11 @@
         {% endif %}
         <form action="{{ url_for('new_comment', project_id=project.id) }}" method="post">
         <div class="formwrapper">
-                <div class="form-field">
+                <div>
                     {{ form.comment.label }} <br/> {{ form.comment }}
                 </div>
             {{ form.submit }}
         </div><br>
-        {%if project.manager == username %}
-        <td><a href="{{ url_for('update_project', project_id=project.id)}}">Edit</a></td>
-                <td>
-                    <form action="{{ url_for('delete_project', project_id=project.id) }}" method="post">
-                        <input type="submit" value="Delete">
-                    </form>
-                </td>
-        {% endif %}
-        <br>
         {% endif %}
     </div>
     <footer>
